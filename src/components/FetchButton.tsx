@@ -22,12 +22,11 @@ function FetchData() {
         theme="dark"
       />
 
-      {/* why use client for iconify cant use one server to render */}
       <button
         onClick={() => {
           // TODO: error
-          fetch("https://neotw.oeyoewl.top/tiddlers.json")
-            // fetch("https://jsonplaceholder.typicode.com/todos")
+          // fetch("https://neotw.oeyoewl.top/tiddlers.json")
+          fetch("https://127.0.0.1/tiddlers.json")
             .then((res) => {
               return res.json()
             })
