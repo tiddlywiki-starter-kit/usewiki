@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css"
 function FetchData() {
   const notify = (msg) => toast.success(msg, {})
 
+  const [responseData, setResponseData] = useState(null)
   return (
     <div>
       <ToastContainer
@@ -21,22 +22,20 @@ function FetchData() {
         pauseOnHover
         theme="dark"
       />
-
       <button
         onClick={() => {
-          // TODO: error
-          // fetch("https://neotw.oeyoewl.top/tiddlers.json")
-          fetch("https://127.0.0.1/tiddlers.json")
+          fetch("http://0.0.0.0:8000/status")
             .then((res) => {
               return res.json()
             })
             .then((data) => {
-              notify(data[8].title)
+              setResponseData(data)
             })
         }}
         className="bg-gray-400 rounded-sm p-1">
         <Icon icon="fa:send-o" width="32" />
       </button>
+      <div className="w-full mx-auto">{responseData && <div>{JSON.stringify(responseData, null, 2)}</div>}</div>
     </div>
   )
 }
