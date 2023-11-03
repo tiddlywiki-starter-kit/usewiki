@@ -1,3 +1,12 @@
+![](banner.png)
+
+# usewiki
+
+>[!IMPORTANT]
+> comming ...
+
+## Dev
+
 ```bash
 pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 ```
@@ -7,6 +16,8 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 * change extension logo
 * add contentmenu
 * add background page(user option)
+
+---
 
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
