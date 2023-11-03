@@ -1,12 +1,12 @@
 ```bash
-pnpm create plasmo --with-tailwindcss
+pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 ```
 
 ## TODO
 
 * change extension logo
-* add user option
 * add contentmenu
+* add background page(user option)
 
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 

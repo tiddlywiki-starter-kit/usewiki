@@ -12,7 +12,6 @@ function IndexPopup() {
         <Icon icon="simple-icons:tiddlywiki" width="32" />
         <FetchData />
       </div>
-      <textarea className="bg-neutral-200 rounded w-full outline-none focus:outline-none mx-2 px-1 rows-1 placeholder:text-gray-200" placeholder="✍下面输入内容"></textarea>
     </div>
   )
 }
