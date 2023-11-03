@@ -10,8 +10,8 @@ function IndexPopup() {
     <div className="flex items-center justify-center prose prose-indigo w-[800px] h-96">
       <div className="fixed top-0 left-0 m-1 ">
         <Icon icon="simple-icons:tiddlywiki" width="32" />
-        <FetchData />
       </div>
+        <FetchData />
     </div>
   )
 }
