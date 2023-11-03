@@ -4,11 +4,9 @@ pnpm create plasmo --with-tailwindcss
 
 ## TODO
 
-* change logo
-* 配置
+* change extension logo
+* add user option
 * add contentmenu
-* loading
-* add zustand
 
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
 
