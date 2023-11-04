@@ -3,7 +3,7 @@
 # usewiki
 
 > [!IMPORTANT]
-> beta
+> 目前仅针对无需要的nodejs tiddlywiki实例, 暂未支持需要验证
 
 > 不用仅仅为了记录一个临时想法,浪费额外的几秒去打开太微(TiddlyWiki), 借助usewiki(chrome extension for tiddlywiki), 你可以立刻将你的想法记录下来.
 
@@ -27,14 +27,6 @@
 ## Download
 
 - https://github.com/oeyoews/usewiki/releases
-
-## NOTE
-
-- 打包的时候会有网络请求, 如果无网络, 打包会失败
-
-```bash
-pnpm create plasmo --with-tailwindcss(似乎命令不能用)
-```
 
 ## Credits
 

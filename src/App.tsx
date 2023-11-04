@@ -38,7 +38,6 @@ function App() {
     (text) => text || ""
   )
 
-  const defaultHost = "http://localhost:8000"
   const [type, setType] = useStorage(
     "type",
     (type) => type || "text/vnd.tiddlywiki"
@@ -54,11 +53,12 @@ function App() {
     }
   }
 
-  // rest here to refresh
-  const [host, setHost] = useStorage<string>(
-    "host",
-    (host) => host || defaultHost
-  )
+  // useeffect run twice ?
+  const [
+    host,
+    setHost,
+    { setRenderValue: setHostRenderValue, setStoreValue: setHostStoreValue }
+  ] = useStorage<string>("host", (host) => host || `http://localhost:${8000}`)
 
   useEffect(() => {
     fetch(new URL("/status", host))
@@ -170,7 +170,7 @@ function App() {
     <div className="w-full m-2 p-2">
       <div
         className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
-          loading ? "font-semibold" : "hidden"
+          loading ? "font-semibold" : "text-rose-500"
         }`}>
         <span className="bg-black rounded p-1">
           <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />{" "}
@@ -183,12 +183,16 @@ function App() {
         <span className="bg-black rounded p-1">
           <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
         </span>
-        <span
-          className="bg-black rounded p-1"
-          // onClick={() => setHost(defaultHost)}
-        >
-          <Icon icon="game-icons:portal" className="inline mr-1" /> {host}
-        </span>
+        <input
+          className={`bg-black rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${
+            loading ? "text-green-500" : "text-rose-500"
+          }`}
+          value={host}
+          onChange={(e) => {
+            setHostRenderValue(e.target.value)
+            setHostStoreValue(e.target.value)
+          }}
+        />
         <span className="bg-black text-white p-1 rounded" onClick={toggleType}>
           {type === "text/vnd.tiddlywiki" ? (
             <Icon icon="simple-icons:tiddlywiki" width={22} inline={true} />
