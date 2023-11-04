@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css"
 dayjs.extend(utc)
 
 // TODO: content empty cant import
-function FetchData() {
+function App() {
   const notify = (msg, type = "success") =>
     toast[type](msg, {
       position: "top-right",
@@ -25,8 +25,8 @@ function FetchData() {
   const journalFormat = "YYYY-MM-DD HH:mm:ss"
   const defaultTitle = dayjs(new Date()).format(journalFormat)
 
-  const [username, setUserName] = useState("")
-  const [version, setVersion] = useState("")
+  const [username, setUserName] = useState()
+  const [version, setVersion] = useState()
   const [loading, setLoading] = useState(false)
 
   const [title, setTitle] = useStorage("title", (title) => (title ? title : ""))
@@ -207,4 +207,4 @@ function FetchData() {
   )
 }
 
-export default FetchData
+export default App
