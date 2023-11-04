@@ -27,7 +27,7 @@ jobs:
         run: pnpm install
 
       - name: Build Page
-        run: pnpm build
+        run: pnpm package
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
