@@ -24,6 +24,10 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 * 存储上次输入的内容(state or storage)
 * filetype: md/tid(default)
 
+## NOTE
+
+* 打包的时候会有网络请求, 如果无网络, 打包会失败
+
 ---
 
 This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
