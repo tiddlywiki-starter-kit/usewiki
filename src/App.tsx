@@ -171,14 +171,13 @@ function App() {
         reset
       </button> */}
 
-      <form className="">
+      <form className="font-mono">
         <input
           value={title}
           onChange={handleTitleChange}
           className="bg-neutral-200 rounded w-full outline-none focus:outline-none p-2 resize-none my-2"
           placeholder={`Title ${defaultTitle}`}
           onKeyPress={handleKeyPress}
-          required
         />
         <textarea
           autoFocus={true}
@@ -188,8 +187,7 @@ function App() {
           onKeyPress={handleKeyPress}
           className="bg-neutral-200 appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break"
           // https://tools.m-bsys.com/ex/unicode_table.php
-          placeholder="¶ 现在的想法是 ..."
-          required></textarea>
+          placeholder="¶ 现在的想法是 ..."></textarea>
       </form>
       <ToastContainer
         position="top-right"
