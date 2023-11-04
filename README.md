@@ -25,6 +25,8 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 * filetype: md/tid(default)
 * support dark/light mode switch(with tailwindcss)
 * UI 暂时不处理, 先加功能
+* revison field 利用
+* journal 聚合到一个tiddler
 
 ## NOTE
 
