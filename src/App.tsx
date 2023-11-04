@@ -185,7 +185,8 @@ function App() {
         </button>
         <button
           className="bg-black rounded p-1"
-          onClick={() => setHost(defaultHost)}>
+          // onClick={() => setHost(defaultHost)}
+        >
           <Icon icon="game-icons:portal" className="inline mr-1" /> {host}
         </button>
         <button
