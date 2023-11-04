@@ -32,7 +32,7 @@ function App() {
     title,
     setTitle,
     { setRenderValue: setTitleRenderValue, setStoreValue: setTitleStoreValue }
-  ] = useStorage("title", (title) => (title ? title : ""))
+  ] = useStorage("title", (title) => title || "")
 
   const [text, setText, { setRenderValue, setStoreValue }] = useStorage(
     "text",
@@ -40,8 +40,9 @@ function App() {
   )
 
   const defaultHost = "http://127.0.0.1:8000"
-  const [type, setType] = useStorage("type", (type) =>
-    type ? type : "text/vnd.tiddlywiki"
+  const [type, setType] = useStorage(
+    "type",
+    (type) => type || "text/vnd.tiddlywiki"
   )
 
   const toggleType = () => {
@@ -53,8 +54,9 @@ function App() {
   }
 
   // rest here to refresh
-  const [host, setHost] = useStorage<string>("host", (host) =>
-    host === undefined ? defaultHost : host
+  const [host, setHost] = useStorage<string>(
+    "host",
+    (host) => host || defaultHost
   )
 
   useEffect(() => {
