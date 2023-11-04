@@ -5,6 +5,8 @@
 >[!IMPORTANT]
 > comming ...
 
+> 不用仅仅为了记录一个临时想法,浪费额外的几秒去打开太微(TiddlyWiki), 借助usewiki(chrome extension for tiddlywiki), 你可以立刻将你的想法记录下来.
+
 ## Dev
 
 ```bash
