@@ -27,15 +27,21 @@ function FetchData() {
 
   const [username, setUserName] = useState("")
   const [version, setVersion] = useState("")
-  const [text, setText] = useState("")
-  const [title, setTitle] = useState(defaultTitle)
   const [loading, setLoading] = useState(false)
 
+  const [title, setTitle] = useStorage("title", (title) =>
+    title === undefined ? defaultTitle : title
+  )
+  const [text, setText] = useStorage("text", (text) =>
+    text === undefined ? "" : text
+  )
+
+  const defaultHost = "http://127.0.0.1:8000"
+
   // rest here to refresh
-  const [storageHost] = useStorage<string>("storage-host", (storageHost) => {
-    return storageHost || "http://0.0.0.0:8000"
-  })
-  const [host, setHost] = useStorage("storage-host", storageHost)
+  const [host, setHost] = useStorage<string>("host", (host) =>
+    host === undefined ? defaultHost : host
+  )
 
   useEffect(() => {
     fetch(`${host}/status`)
@@ -77,8 +83,11 @@ function FetchData() {
       },
       body: JSON.stringify(tiddler)
     }).then((res) => {
-      if (res.ok) notify(`${title} 保存成功`)
-      return res.json()
+      if (!res.ok) return
+      notify(`${title} 保存成功`)
+      setTitle(defaultTitle)
+      setText("")
+      // return res.json()
     })
   }
 

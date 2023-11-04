@@ -20,14 +20,10 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 
 ## TODO
 
-* change extension logo
 * add contentmenu
 * add user configuration
-* miniprogram
-* 存储上次输入的内容(state or storage)
 * filetype: md/tid(default)
 * support dark/light mode switch(with tailwindcss)
-* support i18n
 
 ## NOTE
 
