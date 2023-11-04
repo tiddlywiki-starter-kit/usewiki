@@ -20,7 +20,7 @@ jobs:
           bun-version: latest
       - name: Install Dependency
         run: |
-          bun install sharp
+          bun install --ignore-scripts=false --foreground-scripts --verbose sharp
 
       - name: Build Page
         run: bun run package
