@@ -24,6 +24,7 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 * add user configuration
 * filetype: md/tid(default)
 * support dark/light mode switch(with tailwindcss)
+* UI 暂时不处理, 先加功能
 
 ## NOTE
 
