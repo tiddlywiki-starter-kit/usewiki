@@ -38,7 +38,7 @@ function App() {
     (text) => text || ""
   )
 
-  const defaultHost = "http://127.0.0.1:8000"
+  const defaultHost = "http://localhost:8000"
   const [type, setType] = useStorage(
     "type",
     (type) => type || "text/vnd.tiddlywiki"
@@ -61,7 +61,7 @@ function App() {
   )
 
   useEffect(() => {
-    fetch(`${host}/status`)
+    fetch(new URL("/status", host))
       .then((res) => {
         if (res.ok) {
           setLoading(true)
@@ -92,7 +92,7 @@ function App() {
   }
 
   const fetchWrite = () => {
-    fetch(`${host}/recipes/default/tiddlers/${title}`, {
+    fetch(new URL(`/recipes/default/tiddlers/${title}`, host), {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -112,8 +112,10 @@ function App() {
   }
 
   const [tiddlers, setTiddlers] = useState(0)
+  const getAllTiddlersURL = new URL(`/recipes/default/tiddlers.json`, host)
+
   useEffect(() => {
-    fetch(`${host}/recipes/default/tiddlers.json`)
+    fetch(getAllTiddlersURL)
       .then((res) => res.json())
       .then((data) => {
         setTiddlers(data.length)
@@ -129,7 +131,7 @@ function App() {
       notify("请输入标题", "error")
       return
     }
-    fetch(`${host}/recipes/default/tiddlers/${title}`).then((res) => {
+    fetch(new URL(`/recipes/default/tiddlers/${title}`, host)).then((res) => {
       if (res.ok) {
         notify(`${title} 已存在, 请重新输入标题`, "error")
         throw new Error("该标题已存在")
@@ -170,24 +172,24 @@ function App() {
         className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
           loading ? "font-semibold" : "hidden"
         }`}>
-        <button className="bg-black rounded p-2">
+        <button className="bg-black rounded p-1">
           <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />{" "}
           {version}
         </button>
-        <button className="bg-black rounded p-2">
+        <button className="bg-black rounded p-1">
           <Icon icon="emojione:fishing-pole" className="inline mr-1" />{" "}
-          {tiddlers}
+          {tiddlers.toLocaleString()}
         </button>
-        <button className="bg-black rounded p-2">
+        <button className="bg-black rounded p-1">
           <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
         </button>
         <button
-          className="bg-black rounded p-2"
+          className="bg-black rounded p-1"
           onClick={() => setHost(defaultHost)}>
           <Icon icon="game-icons:portal" className="inline mr-1" /> {host}
         </button>
         <button
-          className="bg-black text-white p-2 rounded"
+          className="bg-black text-white p-1 rounded"
           onClick={toggleType}>
           {type === "text/vnd.tiddlywiki" ? (
             <Icon icon="simple-icons:tiddlywiki" width={22} inline={true} />
