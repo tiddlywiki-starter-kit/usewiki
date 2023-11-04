@@ -1,23 +1,12 @@
-import { Icon } from "@iconify/react";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import React, { useEffect, useState } from "react";
-import { toast, ToastContainer, Zoom } from "react-toastify";
+import { Icon } from "@iconify/react"
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+import React, { useEffect, useState } from "react"
+import { toast, ToastContainer, Zoom } from "react-toastify"
 
+import { useStorage } from "@plasmohq/storage/hook"
 
-
-import { useStorage } from "@plasmohq/storage/hook";
-
-
-
-
-
-
-import "react-toastify/dist/ReactToastify.css";
-
-
-
-
+import "react-toastify/dist/ReactToastify.css"
 
 dayjs.extend(utc)
 
@@ -147,6 +136,7 @@ function FetchData() {
           required
         />
         <textarea
+          autoFocus={true}
           rows={7}
           value={text}
           onChange={handleTextChange}
