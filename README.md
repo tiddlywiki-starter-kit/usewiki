@@ -17,6 +17,7 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 * add contentmenu
 * add user configuration
 * miniprogram
+* 存储上次输入的内容(state or storage)
 
 ---
 
