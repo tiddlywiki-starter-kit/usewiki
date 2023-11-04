@@ -29,6 +29,7 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 - journal 聚合到一个tiddler
 - https://blog.csdn.net/weixin_42981560/article/details/115701565 上架谷歌商店支付似乎很麻烦?
 - 中文输入bug(onchange)
+- 支持换行
 
 ## NOTE
 
