@@ -48,6 +48,7 @@ function FetchData() {
     creator: username,
     created,
     modified,
+    type: "text/vnd.tiddlywiki", // text/markdown
     fields: {
       tags: "Journal"
     },
@@ -83,7 +84,7 @@ function FetchData() {
           notify(`${title} 已存在, 请重新输入标题`, "error")
           throw new Error("该标题已存在")
         } else {
-          fetchWrite();
+          fetchWrite()
         }
       })
   }
