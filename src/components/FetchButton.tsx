@@ -1,8 +1,12 @@
-import { Icon } from "@iconify/react"
+import { Icon } from "@iconify/react";
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
 import React, { useEffect, useState } from "react"
 import { toast, ToastContainer, Zoom } from "react-toastify"
 
 import "react-toastify/dist/ReactToastify.css"
+
+dayjs.extend(utc)
 
 // TODO: content empty cant import
 function FetchData() {
@@ -16,11 +20,13 @@ function FetchData() {
       draggable: true,
       progress: undefined
     })
+  const journalFormat = "YYYY-MM-DD HH:mm:ss"
+  const defaultTitle = dayjs(new Date()).utc().format(journalFormat)
 
   const [username, setUserName] = useState("")
   const [version, setVersion] = useState("")
   const [text, setText] = useState("")
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState(defaultTitle)
 
   useEffect(() => {
     fetch("http://0.0.0.0:8000/status")
@@ -32,7 +38,9 @@ function FetchData() {
         setVersion(tiddlywiki_version)
       })
   }, [])
-
+  const timeFormat = "YYYYMMDDHHmmss"
+  const created = dayjs(new Date()).utc().format(timeFormat)
+  const modified = created
   const addTiddler = () => {
     if (!text) {
       notify("请输入内容", "error")
@@ -46,6 +54,11 @@ function FetchData() {
       },
       body: JSON.stringify({
         creator: username,
+        created,
+        modified,
+        fields: {
+          tags: "Journal"
+        },
         text
       })
     }).then((res) => {
@@ -80,8 +93,8 @@ function FetchData() {
         <input
           value={title}
           onChange={handleTitleChange}
-          className="bg-neutral-200 appearance-none rounded w-full outline-none focus:outline-none mx-2 px-1 py-2 placeholder:text-gray-200 resize-none my-2"
-          placeholder="💡Title"
+          className="bg-neutral-200 rounded w-full outline-none focus:outline-none mx-2 px-1 py-2 resize-none my-2"
+          placeholder={`💡 Title ${defaultTitle}`}
           required
         />
         <textarea
