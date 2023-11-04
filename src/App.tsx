@@ -115,7 +115,7 @@ function App() {
   }, [])
 
   const addTiddler = () => {
-    if (!text) {
+    if (!text.trim()) {
       notify("请输入内容", "error")
       return
     }
@@ -138,8 +138,8 @@ function App() {
       })
   }
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
+  const handleSend = (e) => {
+    if (e.ctrlKey && e.key === "Enter") {
       e.preventDefault()
       addTiddler()
     }
@@ -184,32 +184,24 @@ function App() {
         </button>
       </div>
 
-      {/* change storage */}
-      {/* <button
-        onClick={() => {
-          setHost("http:/0.0.0.0:8000")
-        }}>
-        reset
-      </button> */}
-
       <form className="font-mono">
         <input
           value={title}
           onChange={handleTitleChange}
           className="bg-black rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
           placeholder={`${defaultTitle}`}
-          onKeyPress={handleKeyPress}
         />
         <textarea
           autoFocus={true}
           rows={8}
           value={text}
+          onKeyDown={handleSend}
           onChange={handleTextChange}
-          onKeyPress={handleKeyPress}
           className="bg-black appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
           // https://tools.m-bsys.com/ex/unicode_table.php
           placeholder="¶ 现在的想法是 ..."></textarea>
       </form>
+
       <ToastContainer
         position="top-right"
         autoClose={1000}
