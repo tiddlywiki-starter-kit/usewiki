@@ -15,15 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
+      - uses: pnpm/action-setup@v2
         with:
-          bun-version: latest
+          version: 8
+      - name: Setup Node.js and Pnpm
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: "pnpm"
       - name: Install Dependency
-        run: |
-          bun install --ignore-scripts=false --foreground-scripts --verbose sharp
+        run: pnpm install
 
       - name: Build Page
-        run: bun run package
+        run: pnpm build
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
