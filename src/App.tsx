@@ -172,26 +172,24 @@ function App() {
         className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
           loading ? "font-semibold" : "hidden"
         }`}>
-        <button className="bg-black rounded p-1">
+        <span className="bg-black rounded p-1">
           <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />{" "}
           {version}
-        </button>
-        <button className="bg-black rounded p-1">
+        </span>
+        <span className="bg-black rounded p-1">
           <Icon icon="emojione:fishing-pole" className="inline mr-1" />{" "}
           {tiddlers.toLocaleString()}
-        </button>
-        <button className="bg-black rounded p-1">
+        </span>
+        <span className="bg-black rounded p-1">
           <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
-        </button>
-        <button
+        </span>
+        <span
           className="bg-black rounded p-1"
           // onClick={() => setHost(defaultHost)}
         >
           <Icon icon="game-icons:portal" className="inline mr-1" /> {host}
-        </button>
-        <button
-          className="bg-black text-white p-1 rounded"
-          onClick={toggleType}>
+        </span>
+        <span className="bg-black text-white p-1 rounded" onClick={toggleType}>
           {type === "text/vnd.tiddlywiki" ? (
             <Icon icon="simple-icons:tiddlywiki" width={22} inline={true} />
           ) : (
@@ -201,7 +199,7 @@ function App() {
               inline={true}
             />
           )}
-        </button>
+        </span>
       </div>
 
       <form className="font-mono">
