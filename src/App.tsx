@@ -171,13 +171,21 @@ function App() {
         className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
           loading ? "font-semibold" : "hidden"
         }`}>
-        <button className="bg-black rounded p-2">{version}</button>
-        <button className="bg-black rounded p-2">{tiddlers}</button>
-        <button className="bg-black rounded p-2">{username}</button>
+        <button className="bg-black rounded p-2">
+          <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />{" "}
+          {version}
+        </button>
+        <button className="bg-black rounded p-2">
+          <Icon icon="emojione:fishing-pole" className="inline mr-1" />{" "}
+          {tiddlers}
+        </button>
+        <button className="bg-black rounded p-2">
+          <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
+        </button>
         <button
           className="bg-black rounded p-2"
           onClick={() => setHost(defaultHost)}>
-          {host}
+          <Icon icon="game-icons:portal" className="inline mr-1" /> {host}
         </button>
         <button
           className="bg-black text-white p-2 rounded"
@@ -208,7 +216,7 @@ function App() {
           value={text}
           onKeyDown={handleSend}
           onChange={handleTextChange}
-          className="bg-black appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
+          className="caret-rose-400 bg-black appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
           // https://tools.m-bsys.com/ex/unicode_table.php
           placeholder="¶ 现在的想法是 ..."></textarea>
       </form>
