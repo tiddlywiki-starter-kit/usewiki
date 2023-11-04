@@ -28,9 +28,16 @@ function App() {
   const [version, setVersion] = useState()
   const [loading, setLoading] = useState(false)
 
-  const [title, setTitle] = useStorage("title", (title) => (title ? title : ""))
+  const [
+    title,
+    setTitle,
+    { setRenderValue: setTitleRenderValue, setStoreValue: setTitleStoreValue }
+  ] = useStorage("title", (title) => (title ? title : ""))
 
-  const [text, setText] = useStorage("text", (text) => text || "")
+  const [text, setText, { setRenderValue, setStoreValue }] = useStorage(
+    "text",
+    (text) => text || ""
+  )
 
   const defaultHost = "http://127.0.0.1:8000"
   const [type, setType] = useStorage("type", (type) =>
@@ -129,15 +136,18 @@ function App() {
     }
   }
 
+  const handleTitleChange = (e) => {
+    setTitleRenderValue(e.target.value)
+    setTitleStoreValue(e.target.value)
+  }
+
   const handleTextChange = (e) => {
     if (!title) {
       setTitle(defaultTitle)
     }
-    setText(e.target.value)
-  }
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value)
+    setRenderValue(e.target.value)
+    setStoreValue(e.target.value)
   }
 
   return (
@@ -173,7 +183,6 @@ function App() {
       <form className="font-mono">
         <input
           value={title}
-          // TODO: 这种更新存储的方式不合适
           onChange={handleTitleChange}
           className="bg-neutral-200 rounded w-full outline-none focus:outline-none p-2 resize-none my-2"
           placeholder={`Title ${defaultTitle}`}
