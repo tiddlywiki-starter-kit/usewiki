@@ -24,7 +24,6 @@ function App() {
     })
   const journalFormat = "YYYY-MM-DD HH:mm:ss"
   const defaultTitle = dayjs(new Date()).format(journalFormat)
-
   const [username, setUserName] = useState()
   const [version, setVersion] = useState()
   const [loading, setLoading] = useState(false)
@@ -174,6 +173,7 @@ function App() {
       <form className="font-mono">
         <input
           value={title}
+          // TODO: 这种更新存储的方式不合适
           onChange={handleTitleChange}
           className="bg-neutral-200 rounded w-full outline-none focus:outline-none p-2 resize-none my-2"
           placeholder={`Title ${defaultTitle}`}
