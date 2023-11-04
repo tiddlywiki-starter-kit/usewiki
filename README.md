@@ -16,6 +16,7 @@
 - revison field 利用
 - journal 聚合到一个tiddler
 - input 支持换行
+- add tag ui
 
 ## Links
 

@@ -101,9 +101,18 @@ function App() {
       notify(`${title} 保存成功`)
       setTitle("")
       setText("")
-      // return res.json()
+      setTiddlers(tiddlers + 1)
     })
   }
+
+  const [tiddlers, setTiddlers] = useState(0)
+  useEffect(() => {
+    fetch(`${host}/recipes/default/tiddlers.json`)
+      .then((res) => res.json())
+      .then((data) => {
+        setTiddlers(data.length)
+      })
+  }, [])
 
   const addTiddler = () => {
     if (!text) {
@@ -152,23 +161,26 @@ function App() {
 
   return (
     <div className="w-full m-2 p-2">
-      {/* hide or show */}
       <div
         className={`flex text-sm space-x-2 justify-center items-center text-gray-400 ${
           loading ? "font-semibold" : "hidden"
         }`}>
-        <Icon icon="simple-icons:tiddlywiki" width="22" inline={true} />
-        <div className="mx-2">Username: {username}</div>
-        <div className="mx-2">Version: {version}</div>
-        <div className="mx-2">Host: {host}</div>
-      </div>
-
-      {/* TODO: option */}
-      <div className="flex justify-end space-x-2 mt-2 mb-0">
+        <button className="bg-black rounded p-2">{username}</button>
+        <button className="bg-black rounded p-2">{version}</button>
+        <button className="bg-black rounded p-2">{host}</button>
+        <button className="bg-black rounded p-2">{tiddlers}</button>
         <button
-          className="bg-black text-white px-2 rounded-sm"
+          className="bg-black text-white p-2 rounded"
           onClick={toggleType}>
-          {type.replace("text/", "")}
+          {type === "text/vnd.tiddlywiki" ? (
+            <Icon icon="simple-icons:tiddlywiki" width={22} inline={true} />
+          ) : (
+            <Icon
+              icon="material-symbols:markdown-outline"
+              width={22}
+              inline={true}
+            />
+          )}
         </button>
       </div>
 
@@ -184,8 +196,8 @@ function App() {
         <input
           value={title}
           onChange={handleTitleChange}
-          className="bg-neutral-200 rounded w-full outline-none focus:outline-none p-2 resize-none my-2"
-          placeholder={`Title ${defaultTitle}`}
+          className="bg-black rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
+          placeholder={`${defaultTitle}`}
           onKeyPress={handleKeyPress}
         />
         <textarea
@@ -194,7 +206,7 @@ function App() {
           value={text}
           onChange={handleTextChange}
           onKeyPress={handleKeyPress}
-          className="bg-neutral-200 appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break"
+          className="bg-black appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
           // https://tools.m-bsys.com/ex/unicode_table.php
           placeholder="¶ 现在的想法是 ..."></textarea>
       </form>
