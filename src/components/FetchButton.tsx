@@ -53,11 +53,8 @@ function FetchData() {
     },
     text
   }
-  const addTiddler = () => {
-    if (!text) {
-      notify("请输入内容", "error")
-      return
-    }
+
+  const fetchWrite = () => {
     fetch(`http://0.0.0.0:8000/recipes/default/tiddlers/${title}`, {
       method: "PUT",
       headers: {
@@ -69,6 +66,26 @@ function FetchData() {
       if (res.ok) notify(`${title} 导入成功`)
       return res.json()
     })
+  }
+
+  const addTiddler = () => {
+    if (!text) {
+      notify("请输入内容", "error")
+      return
+    }
+    fetch(`http://0.0.0.0:8000/recipes/default/tiddlers/${title}`)
+      .then((res) => {
+        if (res.ok) return true
+        return false
+      })
+      .then((data) => {
+        if (data) {
+          notify(`${title} 已存在, 请重新输入标题`, "error")
+          throw new Error("该标题已存在")
+        } else {
+          fetchWrite();
+        }
+      })
   }
 
   const handleKeyPress = (e) => {
@@ -99,6 +116,7 @@ function FetchData() {
           onChange={handleTitleChange}
           className="bg-neutral-200 rounded w-full outline-none focus:outline-none mx-2 px-1 py-2 resize-none my-2"
           placeholder={`💡 Title ${defaultTitle}`}
+          onKeyPress={handleKeyPress}
           required
         />
         <textarea

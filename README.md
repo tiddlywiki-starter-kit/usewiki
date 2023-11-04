@@ -15,7 +15,8 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 
 * change extension logo
 * add contentmenu
-* add background page(user option)
+* add user configuration
+* miniprogram
 
 ---
 
