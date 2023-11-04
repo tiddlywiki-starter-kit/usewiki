@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react";
+import { Icon } from "@iconify/react"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import React, { useEffect, useState } from "react"
@@ -31,6 +31,7 @@ function FetchData() {
   useEffect(() => {
     fetch("http://0.0.0.0:8000/status")
       .then((res) => {
+        if (!res.ok) return
         return res.json()
       })
       .then(({ username, tiddlywiki_version }) => {
@@ -38,9 +39,20 @@ function FetchData() {
         setVersion(tiddlywiki_version)
       })
   }, [])
+
   const timeFormat = "YYYYMMDDHHmmss"
   const created = dayjs(new Date()).utc().format(timeFormat)
   const modified = created
+
+  const tiddler = {
+    creator: username,
+    created,
+    modified,
+    fields: {
+      tags: "Journal"
+    },
+    text
+  }
   const addTiddler = () => {
     if (!text) {
       notify("请输入内容", "error")
@@ -52,15 +64,7 @@ function FetchData() {
         "Content-Type": "application/json",
         "x-requested-with": "TiddlyWiki"
       },
-      body: JSON.stringify({
-        creator: username,
-        created,
-        modified,
-        fields: {
-          tags: "Journal"
-        },
-        text
-      })
+      body: JSON.stringify(tiddler)
     }).then((res) => {
       if (res.ok) notify(`${title} 导入成功`)
       return res.json()
