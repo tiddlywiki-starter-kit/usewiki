@@ -119,12 +119,12 @@ function FetchData() {
 
   return (
     <div className="w-full m-2 p-2">
-    {/* hide or show */}
+      {/* hide or show */}
       <div
         className={`flex text-sm space-x-2 justify-center items-center text-gray-400 ${
           loading ? "font-semibold" : "hidden"
         }`}>
-        <Icon icon="simple-icons:tiddlywiki" width="22" inline={true}/>
+        <Icon icon="simple-icons:tiddlywiki" width="22" inline={true} />
         <div className="mx-2">Username: {username}</div>
         <div className="mx-2">Version: {version}</div>
         <div className="mx-2">Host: {host}</div>
