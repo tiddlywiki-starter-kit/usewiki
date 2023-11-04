@@ -116,7 +116,7 @@ function FetchData() {
           value={title}
           onChange={handleTitleChange}
           className="bg-neutral-200 rounded w-full outline-none focus:outline-none mx-2 px-1 py-2 resize-none my-2"
-          placeholder={`💡 Title ${defaultTitle}`}
+          placeholder={`Title ${defaultTitle}`}
           onKeyPress={handleKeyPress}
           required
         />
@@ -126,7 +126,7 @@ function FetchData() {
           onChange={handleTextChange}
           onKeyPress={handleKeyPress}
           className="bg-neutral-200 appearance-none rounded mx-2 px-1 py-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break"
-          placeholder="✍输入内容，按回车导入"
+          placeholder="✍ 输入内容，按回车导入"
           required></textarea>
       </form>
       <ToastContainer
