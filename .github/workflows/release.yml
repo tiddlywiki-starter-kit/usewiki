@@ -10,6 +10,10 @@ on:
       - "README.md"
       - "LICENSE"
 
+permissions:
+  contents: write
+  discussions: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
