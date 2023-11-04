@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css"
 
 dayjs.extend(utc)
 
-// TODO: content empty cant import
 function App() {
   const notify = (msg, type = "success") =>
     toast[type](msg, {
@@ -46,7 +45,7 @@ function App() {
   const toggleType = () => {
     if (type === "text/markdown") {
       setType("text/vnd.tiddlywiki")
-      notify("已切换为 tiddlywiki")
+      notify("已切换为 wikitext")
     } else {
       setType("text/markdown")
       notify("已切换为 markdown")
