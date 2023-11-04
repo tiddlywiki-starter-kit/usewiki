@@ -48,8 +48,10 @@ function App() {
   const toggleType = () => {
     if (type === "text/markdown") {
       setType("text/vnd.tiddlywiki")
+      notify("已切换为 tiddlywiki")
     } else {
       setType("text/markdown")
+      notify("已切换为 markdown")
     }
   }
 
@@ -99,7 +101,10 @@ function App() {
       },
       body: JSON.stringify(tiddler)
     }).then((res) => {
-      if (!res.ok) return
+      if (!res.ok) {
+        notify(`${title} 保存失败`, "error")
+        throw new Error("保存失败")
+      }
       notify(`${title} 保存成功`)
       setTitle("")
       setText("")
@@ -125,21 +130,20 @@ function App() {
       notify("请输入标题", "error")
       return
     }
-    fetch(`${host}/recipes/default/tiddlers/${title}`)
-      .then((res) => {
-        if (res.ok) return true
-        return false
-      })
-      .then((data) => {
-        if (data) {
-          notify(`${title} 已存在, 请重新输入标题`, "error")
-          throw new Error("该标题已存在")
-        } else {
-          fetchWrite()
-        }
-      })
+    fetch(`${host}/recipes/default/tiddlers/${title}`).then((res) => {
+      if (res.ok) {
+        notify(`${title} 已存在, 请重新输入标题`, "error")
+        throw new Error("该标题已存在")
+      }
+      fetchWrite()
+    })
   }
 
+  const handleInputSend = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+    }
+  }
   const handleSend = (e) => {
     if (e.ctrlKey && e.key === "Enter") {
       e.preventDefault()
@@ -170,7 +174,11 @@ function App() {
         <button className="bg-black rounded p-2">{version}</button>
         <button className="bg-black rounded p-2">{tiddlers}</button>
         <button className="bg-black rounded p-2">{username}</button>
-        <button className="bg-black rounded p-2">{host}</button>
+        <button
+          className="bg-black rounded p-2"
+          onClick={() => setHost(defaultHost)}>
+          {host}
+        </button>
         <button
           className="bg-black text-white p-2 rounded"
           onClick={toggleType}>
@@ -192,6 +200,7 @@ function App() {
           onChange={handleTitleChange}
           className="bg-black rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
           placeholder={`${defaultTitle}`}
+          onKeyDown={handleInputSend}
         />
         <textarea
           autoFocus={true}
