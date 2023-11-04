@@ -1,12 +1,23 @@
-import { Icon } from "@iconify/react"
-import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
-import React, { useEffect, useState } from "react"
-import { toast, ToastContainer, Zoom } from "react-toastify"
+import { Icon } from "@iconify/react";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer, Zoom } from "react-toastify";
 
-import { useStorage } from "@plasmohq/storage/hook"
 
-import "react-toastify/dist/ReactToastify.css"
+
+import { useStorage } from "@plasmohq/storage/hook";
+
+
+
+
+
+
+import "react-toastify/dist/ReactToastify.css";
+
+
+
+
 
 dayjs.extend(utc)
 
@@ -30,11 +41,9 @@ function FetchData() {
   const [loading, setLoading] = useState(false)
 
   const [title, setTitle] = useStorage("title", (title) =>
-    title === undefined ? defaultTitle : title
+    title ? title : defaultTitle
   )
-  const [text, setText] = useStorage("text", (text) =>
-    text === undefined ? "" : text
-  )
+  const [text, setText] = useStorage("text", (text) => text || "")
 
   const defaultHost = "http://127.0.0.1:8000"
 
@@ -85,7 +94,7 @@ function FetchData() {
     }).then((res) => {
       if (!res.ok) return
       notify(`${title} 保存成功`)
-      setTitle(defaultTitle)
+      setTitle("")
       setText("")
       // return res.json()
     })
