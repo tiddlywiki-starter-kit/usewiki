@@ -16,6 +16,7 @@ pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 ## Links
 
 * https://juejin.cn/post/7138820996840030215
+* https://juejin.cn/post/7257520279312498748
 
 ## TODO
 
