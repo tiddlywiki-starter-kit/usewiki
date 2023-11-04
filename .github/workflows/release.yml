@@ -20,8 +20,7 @@ jobs:
           bun-version: latest
       - name: Install Dependency
         run: |
-          bun install --platform=linux --arch=x64 sharp
-          bun install
+          bun install sharp
 
       - name: Build Page
         run: bun run package
