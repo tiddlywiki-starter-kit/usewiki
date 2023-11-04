@@ -29,7 +29,9 @@ function FetchData() {
   const [version, setVersion] = useState("")
   const [text, setText] = useState("")
   const [title, setTitle] = useState(defaultTitle)
+  const [loading, setLoading] = useState(false)
 
+  // rest here to refresh
   const [storageHost] = useStorage<string>("storage-host", (storageHost) => {
     return storageHost || "http://0.0.0.0:8000"
   })
@@ -38,7 +40,11 @@ function FetchData() {
   useEffect(() => {
     fetch(`${host}/status`)
       .then((res) => {
-        if (!res.ok) return
+        if (res.ok) {
+          setLoading(true)
+        } else {
+          return
+        }
         return res.json()
       })
       .then(({ username, tiddlywiki_version }) => {
@@ -71,7 +77,7 @@ function FetchData() {
       },
       body: JSON.stringify(tiddler)
     }).then((res) => {
-      if (res.ok) notify(`${title} 导入成功`)
+      if (res.ok) notify(`${title} 保存成功`)
       return res.json()
     })
   }
@@ -112,13 +118,19 @@ function FetchData() {
   }
 
   return (
-    <div>
-      <div className="flex text-sm space-x-2 justify-center items-center text-gray-400">
-        <div className="underline mx-2">Username: {username}</div>
-        <div className="underline mx-2">Version: {version}</div>
-        <div className="underline mx-2">Host: {host}</div>
+    <div className="w-full m-2 p-2">
+    {/* hide or show */}
+      <div
+        className={`flex text-sm space-x-2 justify-center items-center text-gray-400 ${
+          loading ? "font-semibold" : "hidden"
+        }`}>
+        <Icon icon="simple-icons:tiddlywiki" width="22" inline={true}/>
+        <div className="mx-2">Username: {username}</div>
+        <div className="mx-2">Version: {version}</div>
+        <div className="mx-2">Host: {host}</div>
       </div>
 
+      {/* change storage */}
       {/* <button
         onClick={() => {
           setHost("http:/0.0.0.0:8000")
@@ -126,23 +138,24 @@ function FetchData() {
         reset
       </button> */}
 
-      <form className="my-2">
+      <form className="my-2 p-2">
         <input
           value={title}
           onChange={handleTitleChange}
-          className="bg-neutral-200 rounded w-full outline-none focus:outline-none mx-2 px-1 py-2 resize-none my-2"
+          className="bg-neutral-200 rounded w-full outline-none focus:outline-none p-2 resize-none my-2"
           placeholder={`Title ${defaultTitle}`}
           onKeyPress={handleKeyPress}
           required
         />
         <textarea
           autoFocus={true}
-          rows={7}
+          rows={8}
           value={text}
           onChange={handleTextChange}
           onKeyPress={handleKeyPress}
-          className="bg-neutral-200 appearance-none rounded mx-2 px-1 py-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break"
-          placeholder="✍ 输入内容，按回车导入"
+          className="bg-neutral-200 appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break"
+          // https://tools.m-bsys.com/ex/unicode_table.php
+          placeholder="¶ 现在的想法是 ..."
           required></textarea>
       </form>
       <ToastContainer
