@@ -1,23 +1,12 @@
-import { Icon } from "@iconify/react";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-import React, { useEffect, useState } from "react";
-import { toast, ToastContainer, Zoom } from "react-toastify";
+import { Icon } from "@iconify/react"
+import dayjs from "dayjs"
+import utc from "dayjs/plugin/utc"
+import React, { useEffect, useState } from "react"
+import { toast, ToastContainer, Zoom } from "react-toastify"
 
+import { useStorage } from "@plasmohq/storage/hook"
 
-
-import { useStorage } from "@plasmohq/storage/hook";
-
-
-
-
-
-
-import "react-toastify/dist/ReactToastify.css";
-
-
-
-
+import "react-toastify/dist/ReactToastify.css"
 
 dayjs.extend(utc)
 
@@ -40,12 +29,22 @@ function FetchData() {
   const [version, setVersion] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const [title, setTitle] = useStorage("title", (title) =>
-    title ? title : defaultTitle
-  )
+  const [title, setTitle] = useStorage("title", (title) => (title ? title : ""))
+
   const [text, setText] = useStorage("text", (text) => text || "")
 
   const defaultHost = "http://127.0.0.1:8000"
+  const [type, setType] = useStorage("type", (type) =>
+    type ? type : "text/vnd.tiddlywiki"
+  )
+
+  const toggleType = () => {
+    if (type === "text/markdown") {
+      setType("text/vnd.tiddlywiki")
+    } else {
+      setType("text/markdown")
+    }
+  }
 
   // rest here to refresh
   const [host, setHost] = useStorage<string>("host", (host) =>
@@ -76,11 +75,11 @@ function FetchData() {
     creator: username,
     created,
     modified,
-    type: "text/vnd.tiddlywiki", // text/markdown
     fields: {
       tags: "Journal"
     },
-    text
+    text,
+    type
   }
 
   const fetchWrite = () => {
@@ -103,6 +102,10 @@ function FetchData() {
   const addTiddler = () => {
     if (!text) {
       notify("请输入内容", "error")
+      return
+    }
+    if (!title) {
+      notify("请输入标题", "error")
       return
     }
     fetch(`${host}/recipes/default/tiddlers/${title}`)
@@ -128,6 +131,9 @@ function FetchData() {
   }
 
   const handleTextChange = (e) => {
+    if (!title) {
+      setTitle(defaultTitle)
+    }
     setText(e.target.value)
   }
 
@@ -148,6 +154,15 @@ function FetchData() {
         <div className="mx-2">Host: {host}</div>
       </div>
 
+      {/* TODO: option */}
+      <div className="flex justify-end space-x-2 mt-2 mb-0">
+        <button
+          className="bg-black text-white px-2 rounded-sm"
+          onClick={toggleType}>
+          {type.replace("text/", "")}
+        </button>
+      </div>
+
       {/* change storage */}
       {/* <button
         onClick={() => {
@@ -156,7 +171,7 @@ function FetchData() {
         reset
       </button> */}
 
-      <form className="my-2 p-2">
+      <form className="">
         <input
           value={title}
           onChange={handleTitleChange}
