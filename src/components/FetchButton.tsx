@@ -1,12 +1,23 @@
-import { Icon } from "@iconify/react"
-import dayjs from "dayjs"
-import utc from "dayjs/plugin/utc"
-import React, { useEffect, useState } from "react"
-import { toast, ToastContainer, Zoom } from "react-toastify"
+import { Icon } from "@iconify/react";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import React, { useEffect, useState } from "react";
+import { toast, ToastContainer, Zoom } from "react-toastify";
 
-import { useStorage } from "@plasmohq/storage/hook"
 
-import "react-toastify/dist/ReactToastify.css"
+
+import { useStorage } from "@plasmohq/storage/hook";
+
+
+
+
+
+
+import "react-toastify/dist/ReactToastify.css";
+
+
+
+
 
 dayjs.extend(utc)
 
@@ -23,7 +34,7 @@ function FetchData() {
       progress: undefined
     })
   const journalFormat = "YYYY-MM-DD HH:mm:ss"
-  const defaultTitle = dayjs(new Date()).utc().format(journalFormat)
+  const defaultTitle = dayjs(new Date()).format(journalFormat)
 
   const [username, setUserName] = useState("")
   const [version, setVersion] = useState("")
