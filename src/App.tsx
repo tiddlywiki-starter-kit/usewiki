@@ -168,7 +168,7 @@ function App() {
   return (
     <div className="w-full m-2 p-2">
       <div
-        className={`flex text-sm space-x-2 justify-center items-center text-gray-400 ${
+        className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
           loading ? "font-semibold" : "hidden"
         }`}>
         <button className="bg-black rounded p-2">{version}</button>
