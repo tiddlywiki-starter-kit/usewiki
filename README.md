@@ -11,6 +11,10 @@
 pnpm create plasmo --with-tailwindcss(似乎命令不能用)
 ```
 
+## Links
+
+* https://juejin.cn/post/7138820996840030215
+
 ## TODO
 
 * change extension logo

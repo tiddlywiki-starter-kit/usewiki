@@ -4,6 +4,8 @@ import utc from "dayjs/plugin/utc"
 import React, { useEffect, useState } from "react"
 import { toast, ToastContainer, Zoom } from "react-toastify"
 
+import { useStorage } from "@plasmohq/storage/hook"
+
 import "react-toastify/dist/ReactToastify.css"
 
 dayjs.extend(utc)
@@ -28,8 +30,13 @@ function FetchData() {
   const [text, setText] = useState("")
   const [title, setTitle] = useState(defaultTitle)
 
+  const [storageHost] = useStorage<string>("storage-host", (storageHost) => {
+    return storageHost || "http://0.0.0.0:8000"
+  })
+  const [host, setHost] = useStorage("storage-host", storageHost)
+
   useEffect(() => {
-    fetch("http://0.0.0.0:8000/status")
+    fetch(`${host}/status`)
       .then((res) => {
         if (!res.ok) return
         return res.json()
@@ -56,7 +63,7 @@ function FetchData() {
   }
 
   const fetchWrite = () => {
-    fetch(`http://0.0.0.0:8000/recipes/default/tiddlers/${title}`, {
+    fetch(`${host}/recipes/default/tiddlers/${title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +81,7 @@ function FetchData() {
       notify("请输入内容", "error")
       return
     }
-    fetch(`http://0.0.0.0:8000/recipes/default/tiddlers/${title}`)
+    fetch(`${host}/recipes/default/tiddlers/${title}`)
       .then((res) => {
         if (res.ok) return true
         return false
@@ -106,10 +113,18 @@ function FetchData() {
 
   return (
     <div>
-      <div className="flex text-sm space-x-2 justify-center items-center">
-        Username: <div className="underline mx-2"> {username}</div>
-        Version: <div className="underline mx-2">{version}</div>
+      <div className="flex text-sm space-x-2 justify-center items-center text-gray-400">
+        <div className="underline mx-2">Username: {username}</div>
+        <div className="underline mx-2">Version: {version}</div>
+        <div className="underline mx-2">Host: {host}</div>
       </div>
+
+      {/* <button
+        onClick={() => {
+          setHost("http:/0.0.0.0:8000")
+        }}>
+        reset
+      </button> */}
 
       <form className="my-2">
         <input

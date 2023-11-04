@@ -10,6 +10,7 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "@plasmohq/storage": "^1.8.1",
     "@tailwindcss/typography": "^0.5.10",
     "dayjs": "^1.11.10",
     "plasmo": "^0.83.0",
