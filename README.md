@@ -10,6 +10,7 @@
 ## TODO
 
 - 重构状态管理, 数据持久化(也许chrome extension 可以使用background.js)
+- update color node
 - add contentmenu
 - add user configuration
 - filetype: md/tid(default)
