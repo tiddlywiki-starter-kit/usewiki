@@ -22,8 +22,9 @@ function App() {
     })
   const journalFormat = "YYYY-MM-DD HH:mm:ss"
   const defaultTitle = dayjs(new Date()).format(journalFormat)
-  const [username, setUserName] = useState()
-  const [version, setVersion] = useState()
+
+  const [username, setUserName] = useState("")
+  const [version, setVersion] = useState("")
   const [loading, setLoading] = useState(false)
 
   const [
@@ -106,7 +107,7 @@ function App() {
       notify(`保存成功`)
       setTitle("")
       setText("")
-      setTiddlers(tiddlers + 1)
+      setTiddlers(() => tiddlers + 1)
     })
   }
 
@@ -172,15 +173,15 @@ function App() {
           loading ? "font-semibold" : "text-rose-500"
         }`}>
         <span className="bg-black rounded p-1">
-          <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />{" "}
+          <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />
           {version}
         </span>
         <span className="bg-black rounded p-1">
-          <Icon icon="emojione:fishing-pole" className="inline mr-1" />{" "}
-          {tiddlers.toLocaleString()}
+          <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
         </span>
         <span className="bg-black rounded p-1">
-          <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
+          <Icon icon="emojione:fishing-pole" className="inline mr-1" />
+          {tiddlers.toLocaleString()}
         </span>
         <input
           className={`bg-black rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${
