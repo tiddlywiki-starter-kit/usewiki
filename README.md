@@ -17,6 +17,7 @@
 - journal 聚合到一个tiddler
 - input 支持换行
 - add tag ui
+- 绑定触发快捷键
 
 ## Links
 
