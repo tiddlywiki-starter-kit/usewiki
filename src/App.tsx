@@ -14,7 +14,6 @@ dayjs.extend(utc)
 function App() {
   const notify = (msg, type = "success") =>
     toast[type](msg, {
-      position: "top-right",
       autoClose: 1000,
       hideProgressBar: true,
       closeOnClick: true,
@@ -105,7 +104,7 @@ function App() {
         notify(`${title} 保存失败`, "error")
         throw new Error("保存失败")
       }
-      notify(`${title} 保存成功`)
+      notify(`保存成功`)
       setTitle("")
       setText("")
       setTiddlers(tiddlers + 1)
@@ -222,7 +221,7 @@ function App() {
       </form>
 
       <ToastContainer
-        position="top-right"
+        position="bottom-center"
         autoClose={1000}
         hideProgressBar
         newestOnTop={true}
