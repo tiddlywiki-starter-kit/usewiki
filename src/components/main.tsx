@@ -192,7 +192,7 @@ export default function Main() {
   let loadingStyle = loading ? "text-green-500" : "text-yellow-500"
 
   return (
-    <div className="w-full m-2 p-2">
+    <div className="">
       <div
         className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${loadingStyle}`}>
         <span className="bg-transparent rounded p-1">
@@ -249,13 +249,9 @@ export default function Main() {
           className="bg-transparent text-white p-1 rounded"
           onClick={toggleType}>
           {type === "text/vnd.tiddlywiki" ? (
-            <Icon icon="simple-icons:tiddlywiki" width={22} inline={true} />
+            <Icon icon="simple-icons:tiddlywiki" />
           ) : (
-            <Icon
-              icon="material-symbols:markdown-outline"
-              width={22}
-              inline={true}
-            />
+            <Icon icon="material-symbols:markdown-outline" />
           )}
         </span>
       </div>
