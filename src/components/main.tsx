@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css"
 
 dayjs.extend(utc)
 
-function App() {
+export default function Main() {
   const notify = (msg, type = "success") =>
     toast[type](msg, {
       autoClose: 1000,
@@ -73,6 +73,7 @@ function App() {
   // setHost("http://localhost:8000")
 
   useEffect(() => {
+    notify("欢迎使用 usewiki")
     fetch(statusURL)
       .then((res) => {
         if (res.ok) {
@@ -184,19 +185,19 @@ function App() {
         className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
           loading ? "font-semibold" : "text-rose-500"
         }`}>
-        <span className="bg-black rounded p-1">
+        <span className="bg-transparent rounded p-1">
           <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />
           {version}
         </span>
-        <span className="bg-black rounded p-1">
+        <span className="bg-transparent rounded p-1">
           <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
         </span>
-        <span className="bg-black rounded p-1">
+        <span className="bg-transparent rounded p-1">
           <Icon icon="emojione:fishing-pole" className="inline mr-1" />
           {tiddlers.toLocaleString()}
         </span>
         <input
-          className={`bg-black rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${
+          className={`bg-transparent rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${
             loading ? "text-green-500" : "text-rose-500"
           }`}
           value={host}
@@ -235,7 +236,9 @@ function App() {
             }
           }}
         />
-        <span className="bg-black text-white p-1 rounded" onClick={toggleType}>
+        <span
+          className="bg-transparent text-white p-1 rounded"
+          onClick={toggleType}>
           {type === "text/vnd.tiddlywiki" ? (
             <Icon icon="simple-icons:tiddlywiki" width={22} inline={true} />
           ) : (
@@ -252,17 +255,17 @@ function App() {
         <input
           value={title}
           onChange={handleTitleChange}
-          className="bg-black rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
+          className="bg-transparent rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
           placeholder={`${defaultTitle}`}
           onKeyDown={handleInputSend}
         />
         <textarea
           autoFocus={true}
-          rows={8}
+          rows={16}
           value={text}
           onKeyDown={handleSend}
           onChange={handleTextChange}
-          className="caret-rose-400 bg-black appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
+          className="caret-rose-400 bg-transparent appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
           // https://tools.m-bsys.com/ex/unicode_table.php
           placeholder="¶ 现在的想法是 ..."></textarea>
       </form>
@@ -282,5 +285,3 @@ function App() {
     </div>
   )
 }
-
-export default App
