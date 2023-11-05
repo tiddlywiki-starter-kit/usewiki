@@ -293,6 +293,16 @@ export default function Main() {
         pauseOnHover
         theme="dark"
       />
+
+      <div className="fixed bottom-0 right-0">
+        <a href="./options.html" target="_blank">
+          <Icon
+            icon="mingcute:fullscreen-2-line"
+            width={20}
+            className="text-white m-2"
+          />
+        </a>
+      </div>
     </div>
   )
 }
