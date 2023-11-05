@@ -12,11 +12,7 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay = () => {
-  return (
-    <div className="">
-      content
-    </div>
-  )
+  return <div className="">content</div>
 }
 
 export default PlasmoOverlay
