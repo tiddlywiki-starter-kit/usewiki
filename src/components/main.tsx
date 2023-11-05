@@ -189,12 +189,12 @@ export default function Main() {
     setStoreValue(e.target.value)
   }
 
+  let loadingStyle = loading ? "text-green-500" : "text-yellow-500"
+
   return (
     <div className="w-full m-2 p-2">
       <div
-        className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${
-          loading ? "font-semibold" : "text-rose-500"
-        }`}>
+        className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${loadingStyle}`}>
         <span className="bg-transparent rounded p-1">
           <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />
           {version}
@@ -207,9 +207,7 @@ export default function Main() {
           {tiddlers.toLocaleString()}
         </span>
         <input
-          className={`bg-transparent rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${
-            loading ? "text-green-500" : "text-rose-500"
-          }`}
+          className={`bg-transparent rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${loadingStyle}`}
           value={host}
           onChange={(e) => {
             if (!checkURL(e.target.value)) {
