@@ -21,6 +21,8 @@
 
 ## Links
 
+- https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions
+- https://developer.chrome.com/docs/extensions/mv3/
 - https://juejin.cn/post/7138820996840030215
 - https://juejin.cn/post/7257520279312498748
 
