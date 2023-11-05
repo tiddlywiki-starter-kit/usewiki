@@ -17,12 +17,7 @@
 - support dark/light mode switch(with tailwindcss)
 - revison field 利用
 - journal 聚合到一个tiddler
-- input 支持换行
 - add tag ui
-- 绑定触发快捷键
-- 适配nextjs fetch hybrid error for fetch
-- 将api fetch, 直接写在api/route.ts, 进行代理转发请求
-- plasmo 是如何使用nextjs的(完全就是两个服务器)
 
 ## Links
 
