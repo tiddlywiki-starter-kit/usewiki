@@ -60,8 +60,20 @@ function App() {
     { setRenderValue: setHostRenderValue, setStoreValue: setHostStoreValue }
   ] = useStorage<string>("host", (host) => host || `http://localhost:${8000}`)
 
+  const statusURL = new URL("/status", host)
+  const checkURL = (url) => {
+    try {
+      new URL(url)
+      return true
+    } catch (error) {
+      return false
+    }
+  }
+
+  // setHost("http://localhost:8000")
+
   useEffect(() => {
-    fetch(new URL("/status", host))
+    fetch(statusURL)
       .then((res) => {
         if (res.ok) {
           setLoading(true)
@@ -152,6 +164,7 @@ function App() {
     }
   }
 
+  // TODO: add throttle
   const handleTitleChange = (e) => {
     setTitleRenderValue(e.target.value)
     setTitleStoreValue(e.target.value)
@@ -161,7 +174,6 @@ function App() {
     if (!title) {
       setTitle(defaultTitle)
     }
-
     setRenderValue(e.target.value)
     setStoreValue(e.target.value)
   }
@@ -189,8 +201,38 @@ function App() {
           }`}
           value={host}
           onChange={(e) => {
+            if (!checkURL(e.target.value)) {
+              notify("请输入正确的地址", "error")
+              return
+            }
             setHostRenderValue(e.target.value)
-            setHostStoreValue(e.target.value)
+          }}
+          onKeyDown={(e) => {
+            // @ts-ignore
+            const value = e.target.value
+            if (e.key === "Enter") {
+              e.preventDefault()
+              // @ts-ignore
+              if (!checkURL(value)) {
+                notify("无法访问", "error")
+                return
+              }
+              // fetch(value)
+              //   .then((res) => {
+              //     if (res.ok) {
+              //       return true
+              //     }
+              //     return false
+              //   })
+              //   .then((data) => {
+              //     if (data) {
+              //       setHostStoreValue(value)
+              //       notify(`已切换为 ${value}`)
+              //     } else {
+              //       notify("请输入正确的地址", "error")
+              //     }
+              //   })
+            }
           }}
         />
         <span className="bg-black text-white p-1 rounded" onClick={toggleType}>
