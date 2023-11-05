@@ -1,4 +1,4 @@
-import cssText from "data-text:~style.css"
+import cssText from "data-text:~global.css"
 import type { PlasmoCSConfig } from "plasmo"
 
 export const config: PlasmoCSConfig = {

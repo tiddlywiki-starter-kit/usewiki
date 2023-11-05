@@ -1,4 +1,4 @@
-import "~style.css"
+import "~global.css"
 
 import Main from "~components/main"
 

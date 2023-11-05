@@ -20,6 +20,7 @@
 - input 支持换行
 - add tag ui
 - 绑定触发快捷键
+- 适配nextjs fetch hybrid error for fetch
 
 ## Links
 

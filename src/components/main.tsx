@@ -72,8 +72,8 @@ export default function Main() {
 
   // setHost("http://localhost:8000")
 
+  // TODO: client to fetch(not node env, browser will check cros)
   useEffect(() => {
-    notify("欢迎使用 usewiki")
     fetch(statusURL)
       .then((res) => {
         if (res.ok) {
@@ -86,6 +86,11 @@ export default function Main() {
       .then(({ username, tiddlywiki_version }) => {
         setUserName(username)
         setVersion(tiddlywiki_version)
+        notify("连接成功, 欢迎使用 usewiki.")
+      })
+      .catch((e) => {
+        notify(`连接失败, ${host}`, "error")
+        console.log(e)
       })
   }, [])
 
@@ -133,6 +138,9 @@ export default function Main() {
       .then((data) => {
         setTiddlers(data.length)
       })
+      .catch((e) => {
+        console.log(e)
+      })
   }, [])
 
   const addTiddler = () => {
@@ -144,13 +152,15 @@ export default function Main() {
       notify("请输入标题", "error")
       return
     }
-    fetch(new URL(`/recipes/default/tiddlers/${title}`, host)).then((res) => {
-      if (res.ok) {
-        notify(`${title} 已存在, 请重新输入标题`, "error")
-        throw new Error("该标题已存在")
-      }
-      fetchWrite()
-    })
+    fetch(new URL(`/recipes/default/tiddlers/${title}`, host))
+      .then((res) => {
+        if (res.ok) {
+          notify(`${title} 已存在, 请重新输入标题`, "error")
+          throw new Error("该标题已存在")
+        }
+        fetchWrite()
+      })
+      .catch((e) => console.log(e))
   }
 
   const handleInputSend = (e) => {
@@ -218,21 +228,22 @@ export default function Main() {
                 notify("无法访问", "error")
                 return
               }
-              // fetch(value)
-              //   .then((res) => {
-              //     if (res.ok) {
-              //       return true
-              //     }
-              //     return false
-              //   })
-              //   .then((data) => {
-              //     if (data) {
-              //       setHostStoreValue(value)
-              //       notify(`已切换为 ${value}`)
-              //     } else {
-              //       notify("请输入正确的地址", "error")
-              //     }
-              //   })
+              fetch(value)
+                .then((res) => {
+                  if (res.ok) {
+                    return true
+                  }
+                  return false
+                })
+                .then((data) => {
+                  if (data) {
+                    setHostStoreValue(value)
+                    notify(`已切换为 ${value}`)
+                  } else {
+                    notify("请输入正确的地址", "error")
+                  }
+                })
+                .catch((e) => console.log(e))
             }
           }}
         />
