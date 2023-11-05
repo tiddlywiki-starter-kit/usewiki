@@ -26,10 +26,6 @@
 - https://juejin.cn/post/7138820996840030215
 - https://juejin.cn/post/7257520279312498748
 
-## NOTE
-
-- 虽然支持nextjs, 但是几乎没啥用
-
 ## Download
 
 - https://github.com/oeyoews/usewiki/releases
