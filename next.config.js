@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx"],
-  reactStrictMode: true,
+  reactStrictMode: false, // useeffect run twice
   images: {
     remotePatterns: [
       {

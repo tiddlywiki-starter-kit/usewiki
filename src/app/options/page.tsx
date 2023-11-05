@@ -4,7 +4,7 @@ import Image from "next/image"
 
 import Main from "~components/main"
 
-function IndexPopup() {
+function OptionPage() {
   return (
     <div
       className={`flex items-center justify-center prose prose-indigo w-[800px] bg-black`}>
@@ -20,4 +20,4 @@ function IndexPopup() {
   )
 }
 
-export default IndexPopup
+export default OptionPage
