@@ -1,14 +1,8 @@
-"use client"
-
-import Main from "~components/main"
+import Image from "next/image"
+import Link from "next/link"
 
 function IndexPopup() {
-  return (
-    <div
-      className={`flex items-center justify-center prose prose-indigo w-[800px] bg-black`}>
-      <Main />
-    </div>
-  )
+  return <Link href={"/options"}>Go to homepage</Link>
 }
 
 export default IndexPopup

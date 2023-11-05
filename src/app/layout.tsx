@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="prose prose-indigo max-w-3xl mx-auto h-screen bg-black">
+      <body className="prose prose-indigo max-w-3xl mx-auto h-screen bg-black p-2">
         {children}
       </body>
     </html>
