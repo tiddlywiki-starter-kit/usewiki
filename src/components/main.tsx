@@ -9,6 +9,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import Nav from "~components/Nav"
 import config from "~config"
+import fetchWrite from "~lib/fetchWrite"
 
 dayjs.extend(utc)
 
@@ -32,7 +33,9 @@ export default function Main() {
     "type",
     (type) => type || "text/vnd.tiddlywiki"
   )
+
   const defaultTitle = dayjs(new Date()).format(config.dateFormat)
+  const created = dayjs(new Date()).utc().format(config.timeFormat)
 
   const toggleType = () => {
     if (type === "text/markdown") {
@@ -44,7 +47,6 @@ export default function Main() {
     }
   }
 
-  // useeffect run twice ?
   const [
     host,
     setHost,
@@ -85,8 +87,6 @@ export default function Main() {
       })
   }, [])
 
-  const created = dayjs(new Date()).utc().format(config.timeFormat)
-
   const tiddler = {
     creator: username,
     created,
@@ -96,26 +96,6 @@ export default function Main() {
     },
     text,
     type
-  }
-
-  const fetchWrite = () => {
-    fetch(new URL(`/recipes/default/tiddlers/${title}`, host), {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "x-requested-with": "TiddlyWiki"
-      },
-      body: JSON.stringify(tiddler)
-    }).then((res) => {
-      if (!res.ok) {
-        toast.error(`${title} 保存失败`)
-        throw new Error("保存失败")
-      }
-      toast(`保存成功`)
-      setTitle("")
-      setText("")
-      setTiddlers(() => tiddlers + 1)
-    })
   }
 
   const [tiddlers, setTiddlers] = useState(0)
@@ -147,7 +127,7 @@ export default function Main() {
           toast.error(`${title} 已存在, 请重新输入标题`)
           throw new Error("该标题已存在")
         }
-        fetchWrite()
+        fetchWrite(title, host, tiddler)
       })
       .catch((e) => console.log(e))
   }
