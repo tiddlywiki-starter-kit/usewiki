@@ -2,24 +2,13 @@ import { Icon } from "@iconify/react"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import React, { useEffect, useState } from "react"
-import { toast, ToastContainer, Zoom } from "react-toastify"
+import toast, { Toaster } from "react-hot-toast"
 
 import { useStorage } from "@plasmohq/storage/hook"
-
-import "react-toastify/dist/ReactToastify.css"
 
 dayjs.extend(utc)
 
 export default function Main() {
-  const notify = (msg, type = "success") =>
-    toast[type](msg, {
-      autoClose: 1000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined
-    })
   const journalFormat = "YYYY-MM-DD HH:mm:ss"
   const defaultTitle = dayjs(new Date()).format(journalFormat)
 
@@ -46,10 +35,10 @@ export default function Main() {
   const toggleType = () => {
     if (type === "text/markdown") {
       setType("text/vnd.tiddlywiki")
-      notify("已切换为 wikitext")
+      toast("已切换为 wikitext")
     } else {
       setType("text/markdown")
-      notify("已切换为 markdown")
+      toast("已切换为 markdown")
     }
   }
 
@@ -86,10 +75,10 @@ export default function Main() {
       .then(({ username, tiddlywiki_version }) => {
         setUserName(username)
         setVersion(tiddlywiki_version)
-        notify("连接成功, 欢迎使用 usewiki.")
+        toast.success("连接成功, 欢迎使用 usewiki")
       })
       .catch((e) => {
-        notify(`连接失败, ${host}`, "error")
+        toast.error(`连接失败, ${host}`)
         console.log(e)
       })
   }, [])
@@ -119,10 +108,10 @@ export default function Main() {
       body: JSON.stringify(tiddler)
     }).then((res) => {
       if (!res.ok) {
-        notify(`${title} 保存失败`, "error")
+        toast.error(`${title} 保存失败`)
         throw new Error("保存失败")
       }
-      notify(`保存成功`)
+      toast(`保存成功`)
       setTitle("")
       setText("")
       setTiddlers(() => tiddlers + 1)
@@ -145,17 +134,17 @@ export default function Main() {
 
   const addTiddler = () => {
     if (!text.trim()) {
-      notify("请输入内容", "error")
+      toast.error("请输入内容")
       return
     }
     if (!title) {
-      notify("请输入标题", "error")
+      toast.error("请输入标题")
       return
     }
     fetch(new URL(`/recipes/default/tiddlers/${title}`, host))
       .then((res) => {
         if (res.ok) {
-          notify(`${title} 已存在, 请重新输入标题`, "error")
+          toast.error(`${title} 已存在, 请重新输入标题`)
           throw new Error("该标题已存在")
         }
         fetchWrite()
@@ -211,7 +200,7 @@ export default function Main() {
           value={host}
           onChange={(e) => {
             if (!checkURL(e.target.value)) {
-              notify("请输入正确的地址", "error")
+              toast("请输入正确的地址")
               return
             }
             setHostRenderValue(e.target.value)
@@ -223,7 +212,7 @@ export default function Main() {
               e.preventDefault()
               // @ts-ignore
               if (!checkURL(value)) {
-                notify("无法访问", "error")
+                toast("无法访问")
                 return
               }
               fetch(value)
@@ -236,9 +225,9 @@ export default function Main() {
                 .then((data) => {
                   if (data) {
                     setHostStoreValue(value)
-                    notify(`已切换为 ${value}`)
+                    toast(`已切换为 ${value}`)
                   } else {
-                    notify("请输入正确的地址", "error")
+                    toast("请输入正确的地址")
                   }
                 })
                 .catch((e) => console.log(e))
@@ -275,19 +264,7 @@ export default function Main() {
           placeholder="¶ 现在的想法是 ..."></textarea>
       </form>
 
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
-        hideProgressBar
-        newestOnTop={true}
-        transition={Zoom}
-        closeOnClick
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-
+      <Toaster position="bottom-left" reverseOrder={false} />
       <div className="fixed bottom-0 right-0 flex">
         <a href="./newtab.html" target="_blank">
           <Icon
