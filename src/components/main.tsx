@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import clsx from "clsx"
 import dayjs from "dayjs"
 import utc from "dayjs/plugin/utc"
 import React, { useEffect, useState } from "react"
@@ -6,12 +7,12 @@ import toast, { Toaster } from "react-hot-toast"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
+import Nav from "~components/Nav"
+import config from "~config"
+
 dayjs.extend(utc)
 
 export default function Main() {
-  const journalFormat = "YYYY-MM-DD HH:mm:ss"
-  const defaultTitle = dayjs(new Date()).format(journalFormat)
-
   const [username, setUserName] = useState("")
   const [version, setVersion] = useState("")
   const [loading, setLoading] = useState(false)
@@ -31,14 +32,15 @@ export default function Main() {
     "type",
     (type) => type || "text/vnd.tiddlywiki"
   )
+  const defaultTitle = dayjs(new Date()).format(config.dateFormat)
 
   const toggleType = () => {
     if (type === "text/markdown") {
       setType("text/vnd.tiddlywiki")
-      toast("已切换为 wikitext")
+      toast.success("已切换为 wikitext")
     } else {
       setType("text/markdown")
-      toast("已切换为 markdown")
+      toast.success("已切换为 markdown")
     }
   }
 
@@ -83,14 +85,12 @@ export default function Main() {
       })
   }, [])
 
-  const timeFormat = "YYYYMMDDHHmmss"
-  const created = dayjs(new Date()).utc().format(timeFormat)
-  const modified = created
+  const created = dayjs(new Date()).utc().format(config.timeFormat)
 
   const tiddler = {
     creator: username,
     created,
-    modified,
+    modified: created,
     fields: {
       tags: "Journal"
     },
@@ -178,25 +178,31 @@ export default function Main() {
     setStoreValue(e.target.value)
   }
 
-  let loadingStyle = loading ? "text-green-500" : "text-yellow-500"
+  const loadingStyle = loading ? "text-green-500" : "text-yellow-500"
 
   return (
     <div className="">
       <div
-        className={`flex text-sm space-x-2 justify-between items-center text-gray-400 ${loadingStyle}`}>
-        <span className="bg-transparent rounded p-1">
+        className={clsx(
+          "flex text-sm space-x-2 justify-between items-center text-gray-400",
+          loadingStyle
+        )}>
+        <span className=" rounded p-1">
           <Icon icon="simple-icons:tiddlywiki" className="inline mr-1" />
           {version}
         </span>
-        <span className="bg-transparent rounded p-1">
+        <span className=" rounded p-1">
           <Icon icon="basil:user-outline" className="inline mr-1" /> {username}
         </span>
-        <span className="bg-transparent rounded p-1">
+        <span className=" rounded p-1">
           <Icon icon="emojione:fishing-pole" className="inline mr-1" />
           {tiddlers.toLocaleString()}
         </span>
         <input
-          className={`bg-transparent rounded outline-none focus:outline-none p-2 resize-none my-2 text-gray-300 ${loadingStyle}`}
+          className={clsx(
+            "rounded outline-none focus:outline-none p-2 resize-none my-2",
+            loadingStyle
+          )}
           value={host}
           onChange={(e) => {
             if (!checkURL(e.target.value)) {
@@ -235,7 +241,7 @@ export default function Main() {
           }}
         />
         <span
-          className="bg-transparent text-white p-1 rounded"
+          className="text-white p-1 rounded cursor-pointer"
           onClick={toggleType}>
           {type === "text/vnd.tiddlywiki" ? (
             <Icon icon="simple-icons:tiddlywiki" />
@@ -249,7 +255,7 @@ export default function Main() {
         <input
           value={title}
           onChange={handleTitleChange}
-          className="bg-transparent rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
+          className=" rounded w-full outline-none focus:outline-none p-2 resize-none my-2 text-gray-300"
           placeholder={`${defaultTitle}`}
           onKeyDown={handleInputSend}
         />
@@ -259,24 +265,12 @@ export default function Main() {
           value={text}
           onKeyDown={handleSend}
           onChange={handleTextChange}
-          className="caret-rose-400 bg-transparent appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break text-gray-300"
-          // https://tools.m-bsys.com/ex/unicode_table.php
-          placeholder="¶ 现在的想法是 ..."></textarea>
+          className="caret-rose-400 appearance-none rounded p-2 w-full h-full max-h-[300px] my-1 text-base resize-none overflow-x-hidden overflow-y-auto outline-none whitespace-pre-wrap word-break"
+          placeholder={config.textPlaceHolder}></textarea>
       </form>
 
       <Toaster position="bottom-left" reverseOrder={false} />
-      <div className="fixed bottom-0 right-0 flex">
-        <a href="./newtab.html" target="_blank">
-          <Icon
-            icon="mingcute:fullscreen-2-line"
-            width={20}
-            className="text-white m-2"
-          />
-        </a>
-        <a href="./options.html" target="_blank">
-          <Icon icon="uil:setting" width={20} className="text-white m-2" />
-        </a>
-      </div>
+      <Nav />
     </div>
   )
 }
